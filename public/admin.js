@@ -23,7 +23,7 @@ searchInput.addEventListener("input", function () {
 // Tampilin data
 async function fetchData() {
   try {
-    const responseD = await fetch(`http://localhost:3000/api/listcl-Wt`)
+    const responseD = await fetch(`https://absensimpel-production.up.railway.app/api/listcl-Wt`)
     const data = await responseD.json()
     const message = document.getElementById('message');
     console.log(data.dataCL)

@@ -52,10 +52,10 @@ optionSelect.addEventListener("change", fetchData)
 async function fetchData() {
   try {
     const [responseAZ, responseZA, responseBg, responseWt] = await Promise.all([
-      fetch("http://localhost:3000/api/listcl-az"),
-      fetch("http://localhost:3000/api/listcl-za"),
-      fetch("http://localhost:3000/api/listcl-bg"),
-      fetch("http://localhost:3000/api/listcl-Wt"),
+      fetch("https://absensimpel-production.up.railway.app/api/listcl-az"),
+      fetch("https://absensimpel-production.up.railway.app/api/listcl-za"),
+      fetch("https://absensimpel-production.up.railway.app/api/listcl-bg"),
+      fetch("https://absensimpel-production.up.railway.app/api/listcl-Wt"),
     ])
 
     const dataAZ = await responseAZ.json()
