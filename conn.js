@@ -9,6 +9,13 @@ const db = mysql.createConnection({
     database: process.env.MYSQLNAME
 });
 
+console.log("ENV HOST:", process.env.MYSQLHOST);
+console.log("ENV PORT:", process.env.MYSQLPORT);
+console.log("ENV USER:", process.env.MYSQLUSER);
+console.log("ENV PASSWORD:", process.env.MYSQLPASSWORD);
+console.log("ENV DATABASE:", process.env.MYSQLNAME);
+
+
 db.connect((err) => {
     if (err){
         console.error('Koneksi kedalam database tidak berhasil', err.message, err.code, err);
