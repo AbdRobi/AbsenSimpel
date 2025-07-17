@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <!-- Format Waktu -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.30.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.30.1/locale/id.min.js"></script>
+    <link rel="icon" href="/img/CL.png" type="image/png">
+    <title>Admin</title>
+</head>
+<body class="bg-gray-200">
+    <header class="bg-white">
+        <nav class="flex justify-between items-center w-[92%] mx-auto">
+            <div>
+                <img class="w-16 cursor-pointer" src="/img/CL.png" alt="...">
+            </div>
+            <div
+                class="nav-links duration-500 md:static absolute bg-white md:min-h-fit min-h-[20vh] left-0 top-[-100%] md:w-auto  w-full flex items-center px-5 z-20">
+                <ul class="flex md:flex-row flex-col md:items-center md:gap-[4vw] gap-8">
+                    <li>
+                        <a class="text-gray-500 hover:text-black" href="absen.html">Absen</a>
+                    </li>
+                    <li>
+                        <a class="text-black" href="admin.html">Admin</a>
+                    </li>
+                    <li>
+                        <a class="text-gray-500 hover:text-black" href="todo.html">To-do</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="flex items-center gap-6">
+                <button class="bg-[#a6c1ee] text-white px-5 py-2 rounded-full hover:bg-[#87acec] cursor-not-allowed" disabled>Sign in</button>
+                <ion-icon onclick="onToggleMenu(this)" name="menu" class="text-3xl cursor-pointer md:hidden"></ion-icon>
+            </div>
+    </header>
+
+    <div class="mt-5 mx-4">
+        <div class="bg-white rounded-md p-5 flex justify-between items-center">
+           <!-- Create, Delete -->
+            <div class="flex gap-4">
+                <button class="bg-green-200 shadow hover:bg-green-100 rounded-md h-10 w-10" id="createCL">
+                    <ion-icon name="create-outline"></ion-icon>
+                </button>
+            </div>
+
+            <!-- Search -->
+            <div class="flex gap-2 items-center">
+                <div class="flex items-center gap-2 border border-gray-300 px-3 py-1.5 rounded-md w-50 focus:outline-none focus:ring-2 focus:ring-blue-400">
+                    <label for="searchInput"><ion-icon name="search-outline" class="cursor-pointer z-10" id="searchIcon"></ion-icon></label>
+                    <input id="searchInput" type="text" placeholder="Cari nama..." class="border-none">
+                    <ion-icon name="close-outline" class="hidden cursor-pointer" id="clearValue"></ion-icon>
+                </div>
+                <button class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md">Search</button>
+            </div>
+
+        </div>
+
+        <!-- List orng -->
+            <table class="min-w-full bg-white rounded-md shadow-md overflow-hidden text-left mt-5" >
+                <thead class="bg-white text-black">
+                    <tr>
+                        <th class="px-6 py-3 text-sm font-semibold">Nama</th>
+                        <th class="px-6 py-3 text-sm font-semibold">Bagian</th>
+                        <th class="px-6 py-3 text-sm font-semibold">Status</th>
+                        <th class="px-6 py-3 text-sm font-semibold">Waktu</th>
+                        <th class="px-6 py-3 text-sm font-semibold">Action</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200" id="listCL">
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="fixed inset-0 bg-black bg-opacity-40 z-50 flex justify-center items-center hidden" id="createMessage">
+        <div class="bg-white border shadow rounded-md px-3 py-2 flex flex-col gap-4 pb-4">
+            <div class="flex justify-between">
+                <p class="font-semibold">Tambah Anggota CL</p>
+                <ion-icon name="close-outline" class="cursor-pointer rounded-full hover:bg-gray-200" id="closeCreate"></ion-icon>
+            </div>
+
+            <div class="flex flex-col gap-4 justify-between">
+                <div class="flex gap-8 justify-between">
+                    <label for="nama" class="cursor-pointer">Nama : </label>
+                    <input type="text" class="rounded-md w-60 border-2 shadow hover:border-gray-400 px-1" id="nama">
+                </div>
+                
+                <div class="flex gap-8 justify-between items-center">
+                    <label for="bagian" class="cursor-pointer">Bagian : </label>
+                    <input type="text" class="rounded-md w-60 border-2 shadow hover:border-gray-400 px-1" id="bagian">
+                </div>
+
+                <div class="flex flex-col">
+                    <p> Status :</p>
+                    <select name="statusValue" id="status-select" class="cursor-pointer w-28 h-9 shadow border-2 hover:border-gray-400 ml-4">
+                        <option value="absen">Absen</option>
+                        <option value="in">In</option>
+                        <option value="out">Out</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="flex ml-[78%]">
+                <button class=" rounded-md bg-blue-400 w-16 hover:bg-blue-300 py-1 items-center" id="simpanCL">Simpan</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="fixed inset-0 bg-black bg-opacity-40 z-50 flex justify-center items-center hidden" id="editMessage">
+    </div>
+
+    <div id="message" class="flex flex-col items-center justify-center min-h-screen hidden">
+        <div class="flex gap-2 items-center">
+            <p class="text-xl">Semangat kerjanya yaa!, Silahkan tambahkan List dengan klik button yang seperti ini</p>
+            <button class="bg-green-200 shadow hover:bg-green-100 rounded-md h-10 w-10 cursor-default">
+                <ion-icon name="create-outline"></ion-icon>
+            </button>
+            <p class="text-xl">diatas</p>
+
+        </div>
+        <img class="mt-4 rounded-md" src="/img/catWork.gif" alt="gif">
+    </div>
+    
+
+    <script src="admin.js"></script>
+
+
+</body>
+</html>
